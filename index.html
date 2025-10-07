@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corre por México | Carreras en todo el país</title>
+    <meta name="description" content="Descubre carreras en todo México, inscríbete, guarda tus favoritas y organiza tus eventos con Corre por México.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2qqXSGFm3B7spaV0Uy76Ik+qHLLP/7eP1F5c7/qvu1S6Wr5mQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-o9N1j7kP5lG1JtDxhJ4Y4x5K5hV4sHnVf1pQtP5JqLk=" crossorigin=""/>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <a class="skip-link" href="#main">Saltar al contenido principal</a>
+    <header class="site-header" aria-label="Cabecera principal">
+        <div class="logo" role="banner">
+            <img src="assets/img/logo-placeholder.svg" alt="Logotipo de Corre por México" aria-hidden="true">
+            <div class="logo-text">
+                <span class="logo-title" data-i18n="siteName">Corre por México</span>
+                <span class="logo-tagline" data-i18n="siteTagline">La plataforma que conecta a la banda corredora</span>
+            </div>
+        </div>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="primary-navigation">
+            <span class="visually-hidden" data-i18n="openMenu">Abrir menú</span>
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <nav id="primary-navigation" class="main-nav" aria-label="Navegación principal">
+            <ul>
+                <li><a href="#buscador" data-i18n="navExplore">Explora carreras</a></li>
+                <li><a href="#mapa" data-i18n="navMap">Mapa</a></li>
+                <li><a href="#comunidad" data-i18n="navCommunity">Comunidad</a></li>
+                <li><a href="#organizadores" data-i18n="navOrganizers">Organizadores</a></li>
+                <li><a href="#soporte" data-i18n="navSupport">Soporte</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <button class="lang-toggle" data-lang="es" aria-live="polite">
+                <span class="lang-label">ES</span>
+                <span class="visually-hidden" data-i18n="toggleLang">Cambiar idioma</span>
+            </button>
+            <a class="cta" href="#buscador" data-i18n="ctaJoin">Inscríbete ahora</a>
+        </div>
+    </header>
+
+    <main id="main">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-content">
+                <h1 id="hero-title" data-i18n="heroTitle">Encuentra carreras chidas en todo México</h1>
+                <p data-i18n="heroSubtitle">Conecta con la comunidad corredora, arma tu calendario y vive cada meta como si fuera una fiesta.</p>
+                <div class="hero-actions">
+                    <a class="btn primary" href="#buscador" data-i18n="heroExplore">Explora carreras</a>
+                    <a class="btn secondary" href="#comunidad" data-i18n="heroCommunity">Únete a la banda</a>
+                </div>
+            </div>
+            <div class="hero-illustration" role="presentation" aria-hidden="true">
+                <img src="https://images.unsplash.com/photo-1526406915894-7bcd65f60845?auto=format&fit=crop&w=900&q=80" alt="Corredores celebrando en una carrera" loading="lazy">
+            </div>
+        </section>
+
+        <section class="filters" id="buscador" aria-labelledby="filters-title">
+            <div class="section-heading">
+                <h2 id="filters-title" data-i18n="filtersTitle">Busca tu siguiente reto</h2>
+                <p data-i18n="filtersDescription">Usa el buscador avanzado para encontrar carreras por estado, distancia, fecha y nivel. ¡Hay opciones para toda la familia!</p>
+            </div>
+            <form class="filters-form" aria-describedby="filters-help">
+                <div class="form-group">
+                    <label for="state" data-i18n="filterState">Estado</label>
+                    <select id="state" name="state">
+                        <option value="" data-i18n="optionAny">Cualquiera</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="raceType" data-i18n="filterType">Tipo de carrera</label>
+                    <select id="raceType" name="raceType">
+                        <option value="" data-i18n="optionAny">Cualquiera</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="distance" data-i18n="filterDistance">Distancia</label>
+                    <select id="distance" name="distance">
+                        <option value="" data-i18n="optionAny">Cualquiera</option>
+                        <option value="5">5K</option>
+                        <option value="10">10K</option>
+                        <option value="21">Medio maratón</option>
+                        <option value="42">Maratón</option>
+                        <option value="ultra">Ultra</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="difficulty" data-i18n="filterDifficulty">Dificultad</label>
+                    <select id="difficulty" name="difficulty">
+                        <option value="" data-i18n="optionAny">Cualquiera</option>
+                        <option value="beginner" data-i18n="difficultyBeginner">Principiante</option>
+                        <option value="intermediate" data-i18n="difficultyIntermediate">Intermedia</option>
+                        <option value="advanced" data-i18n="difficultyAdvanced">Avanzada</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date" data-i18n="filterDate">Fecha</label>
+                    <input type="date" id="date" name="date">
+                </div>
+                <div class="form-group full-width">
+                    <label for="keywords" data-i18n="filterKeywords">Palabras clave</label>
+                    <input type="search" id="keywords" name="keywords" placeholder="Busca por ciudad, nombre o vibes" data-i18n-placeholder="filterKeywordsPlaceholder">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn primary" data-i18n="filterApply">Aplicar filtros</button>
+                    <button type="reset" class="btn secondary" data-i18n="filterReset">Limpiar</button>
+                </div>
+                <p id="filters-help" class="filters-help" data-i18n="filtersHelp">Puedes combinar varios filtros para encontrar la carrera perfecta.</p>
+            </form>
+        </section>
+
+        <section class="results" aria-labelledby="results-title">
+            <div class="results-header">
+                <div>
+                    <h2 id="results-title" data-i18n="resultsTitle">Resultados destacados</h2>
+                    <p class="results-count" aria-live="polite"></p>
+                </div>
+                <div class="view-toggle" role="group" aria-label="Cambiar vista">
+                    <button type="button" class="btn tertiary" data-view="list" aria-pressed="true" data-i18n="viewList">Vista lista</button>
+                    <button type="button" class="btn tertiary" data-view="map" aria-pressed="false" data-i18n="viewMap">Vista mapa</button>
+                </div>
+            </div>
+            <div class="results-body">
+                <div class="list-view" role="list" aria-label="Lista de carreras"></div>
+                <div class="map-view hidden" id="mapa" aria-label="Mapa de carreras">
+                    <div id="race-map" role="application" aria-label="Mapa interactivo de carreras"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="calendar" aria-labelledby="calendar-title">
+            <div class="section-heading">
+                <h2 id="calendar-title" data-i18n="calendarTitle">Tu calendario y favoritos</h2>
+                <p data-i18n="calendarDescription">Guarda carreras, descarga tu plan en PDF o iCal y recibe recordatorios por correo o WhatsApp.</p>
+            </div>
+            <div class="calendar-grid">
+                <div class="calendar-panel">
+                    <h3 data-i18n="favoritesTitle">Tus carreras favoritas</h3>
+                    <ul class="favorites-list" aria-live="polite"></ul>
+                    <p class="favorites-empty" data-i18n="favoritesEmpty">Aún no tienes favoritas. Guarda tus carreras top para no olvidarlas.</p>
+                </div>
+                <div class="calendar-panel">
+                    <h3 data-i18n="remindersTitle">Recordatorios personalizados</h3>
+                    <form class="reminder-form">
+                        <div class="form-group">
+                            <label for="reminder-email" data-i18n="reminderEmail">Correo electrónico</label>
+                            <input type="email" id="reminder-email" name="email" required placeholder="tucorreo@ejemplo.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="reminder-whatsapp" data-i18n="reminderWhatsApp">WhatsApp (opcional)</label>
+                            <input type="tel" id="reminder-whatsapp" name="whatsapp" placeholder="+52 55 1234 5678">
+                        </div>
+                        <div class="form-group">
+                            <label for="reminder-frequency" data-i18n="reminderFrequency">Frecuencia de avisos</label>
+                            <select id="reminder-frequency" name="frequency">
+                                <option value="weekly" data-i18n="reminderWeekly">Semanal</option>
+                                <option value="biweekly" data-i18n="reminderBiweekly">Cada 15 días</option>
+                                <option value="monthly" data-i18n="reminderMonthly">Mensual</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn primary" data-i18n="reminderSubmit">Recibir recordatorios</button>
+                    </form>
+                    <button type="button" class="btn download" data-i18n="downloadCalendar">Descargar calendario (iCal)</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="organizers" id="organizadores" aria-labelledby="organizers-title">
+            <div class="section-heading">
+                <h2 id="organizers-title" data-i18n="organizersTitle">Zona para organizadores</h2>
+                <p data-i18n="organizersDescription">Registra tus carreras con toda la información necesaria. Nosotros nos encargamos de difundirla con la comunidad corredora.</p>
+            </div>
+            <form class="organizer-form" aria-describedby="organizers-help">
+                <div class="form-group">
+                    <label for="race-name" data-i18n="organizerRaceName">Nombre del evento</label>
+                    <input type="text" id="race-name" name="race-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="race-location" data-i18n="organizerLocation">Lugar</label>
+                    <input type="text" id="race-location" name="race-location" required>
+                </div>
+                <div class="form-group">
+                    <label for="race-date" data-i18n="organizerDate">Fecha</label>
+                    <input type="date" id="race-date" name="race-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="race-types" data-i18n="organizerTypes">Tipos de carrera</label>
+                    <input type="text" id="race-types" name="race-types" placeholder="5K, 10K, Trail, etc." required>
+                </div>
+                <div class="form-group">
+                    <label for="race-distance" data-i18n="organizerDistances">Distancias</label>
+                    <input type="text" id="race-distance" name="race-distance" required>
+                </div>
+                <div class="form-group">
+                    <label for="race-price" data-i18n="organizerPrices">Rango de precios</label>
+                    <input type="text" id="race-price" name="race-price" placeholder="$450 - $900 MXN" required>
+                </div>
+                <div class="form-group">
+                    <label for="race-link" data-i18n="organizerLink">Enlace de inscripción</label>
+                    <input type="url" id="race-link" name="race-link" required>
+                </div>
+                <div class="form-group">
+                    <label for="race-images" data-i18n="organizerImages">Imágenes del evento</label>
+                    <input type="file" id="race-images" name="race-images" accept="image/*" multiple>
+                </div>
+                <div class="form-group">
+                    <label for="race-sponsors" data-i18n="organizerSponsors">Patrocinadores</label>
+                    <input type="text" id="race-sponsors" name="race-sponsors" placeholder="Escribe tus patrocinadores principales">
+                </div>
+                <div class="form-group full-width">
+                    <label for="race-description" data-i18n="organizerDescription">Descripción y beneficios</label>
+                    <textarea id="race-description" name="race-description" rows="5" placeholder="Comparte la historia de tu carrera y lo que la hace única"></textarea>
+                </div>
+                <button type="submit" class="btn primary" data-i18n="organizerSubmit">Enviar carrera</button>
+                <p id="organizers-help" class="form-help" data-i18n="organizersHelp">Nuestro equipo revisará la información para asegurar el cumplimiento con PROFECO y CONAR.</p>
+            </form>
+        </section>
+
+        <section class="community" id="comunidad" aria-labelledby="community-title">
+            <div class="section-heading">
+                <h2 id="community-title" data-i18n="communityTitle">Comunidad y entrenamiento</h2>
+                <p data-i18n="communityDescription">Historias, tips de entrenamiento, foros de preguntas y testimonios que inspiran a correr en tribu.</p>
+            </div>
+            <div class="community-grid">
+                <article class="card" aria-label="Blog de entrenamiento">
+                    <h3 data-i18n="communityBlogTitle">Blog y artículos</h3>
+                    <p data-i18n="communityBlogDescription">Lee guías de entrenamientos, nutrición y carreras legendarias, con lenguaje cercano y ejemplos de todo México.</p>
+                    <a href="#" class="btn tertiary" data-i18n="communityBlogCta">Ir al blog</a>
+                </article>
+                <article class="card" aria-label="Foros de la comunidad">
+                    <h3 data-i18n="communityForumTitle">Foros y preguntas</h3>
+                    <p data-i18n="communityForumDescription">Comparte dudas, arma tus grupos de entrenamiento y recibe apoyo de la banda en tu región.</p>
+                    <a href="#" class="btn tertiary" data-i18n="communityForumCta">Entrar a los foros</a>
+                </article>
+                <article class="card" aria-label="Testimonios">
+                    <h3 data-i18n="communityTestimonialsTitle">Testimonios chidos</h3>
+                    <ul class="testimonials">
+                        <li>
+                            <blockquote>
+                                <p data-i18n="testimonial1">“Gracias a Corre por México corrí mi primer 10K en Oaxaca. La vibra fue increíble.”</p>
+                                <cite>– Fernanda, Oaxaca</cite>
+                            </blockquote>
+                        </li>
+                        <li>
+                            <blockquote>
+                                <p data-i18n="testimonial2">“La comunidad me ayudó a armar mi calendario trail en Chihuahua. ¡Pura buena onda!”</p>
+                                <cite>– Luis, Chihuahua</cite>
+                            </blockquote>
+                        </li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section class="payments" aria-labelledby="payments-title">
+            <div class="section-heading">
+                <h2 id="payments-title" data-i18n="paymentsTitle">Pagos flexibles y locales</h2>
+                <p data-i18n="paymentsDescription">Aceptamos tarjetas, SPEI, PayPal, OXXO y 7-Eleven para que puedas inscribirte sin complicaciones.</p>
+            </div>
+            <div class="payment-methods" role="list">
+                <div class="payment-card" role="listitem">
+                    <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                    <span data-i18n="paymentCard">Tarjeta de crédito y débito</span>
+                </div>
+                <div class="payment-card" role="listitem">
+                    <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                    <span data-i18n="paymentSpei">Transferencia SPEI</span>
+                </div>
+                <div class="payment-card" role="listitem">
+                    <i class="fa-brands fa-paypal" aria-hidden="true"></i>
+                    <span>PayPal</span>
+                </div>
+                <div class="payment-card" role="listitem">
+                    <i class="fa-solid fa-store" aria-hidden="true"></i>
+                    <span data-i18n="paymentOxxo">Pagos en OXXO</span>
+                </div>
+                <div class="payment-card" role="listitem">
+                    <i class="fa-solid fa-store" aria-hidden="true"></i>
+                    <span data-i18n="paymentSeven">Pagos en 7-Eleven</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="support" id="soporte" aria-labelledby="support-title">
+            <div class="section-heading">
+                <h2 id="support-title" data-i18n="supportTitle">Soporte y redes sociales</h2>
+                <p data-i18n="supportDescription">Comparte carreras, recibe ayuda y mantente al día con nuestras redes.</p>
+            </div>
+            <div class="support-grid">
+                <a class="support-card" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a class="support-card" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a class="support-card" href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                    <i class="fa-brands fa-youtube"></i>
+                    <span>YouTube</span>
+                </a>
+                <a class="support-card" href="https://wa.me/5215555555555" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer" aria-labelledby="footer-title">
+        <div class="footer-content">
+            <div>
+                <h2 id="footer-title" data-i18n="footerTitle">Corre por México</h2>
+                <p data-i18n="footerDescription">Celebramos la diversidad de rutas, culturas y tradiciones que hacen grande a nuestra comunidad corredora.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#" data-i18n="footerPrivacy">Aviso de Privacidad</a>
+                <a href="#" data-i18n="footerTerms">Términos y Condiciones</a>
+                <a href="#" data-i18n="footerCookies">Cookies y preferencias</a>
+                <a href="#" data-i18n="footerAccessibility">Accesibilidad</a>
+            </div>
+            <div class="footer-meta">
+                <p data-i18n="footerRights">© <span id="year"></span> Corre por México. Todos los derechos reservados.</p>
+                <p data-i18n="footerCompliance">Cumplimos con la normatividad de PROFECO y CONAR para proteger a nuestra comunidad.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="cookie-banner" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+        <p data-i18n="cookiesMessage">Usamos cookies para mejorar tu experiencia y cumplir con la normatividad mexicana. ¿Las aceptas?</p>
+        <div class="cookie-actions">
+            <button class="btn primary" data-action="accept" data-i18n="cookiesAccept">Aceptar</button>
+            <button class="btn secondary" data-action="reject" data-i18n="cookiesReject">Configurar</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-o9N1j7kP5lG1JtDxhJ4Y4x5K5hV4sHnVf1pQtP5JqLk=" crossorigin=""></script>
+    <script src="assets/js/app.js" type="module"></script>
+</body>
+</html>
