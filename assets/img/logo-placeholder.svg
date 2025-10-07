@@ -1,0 +1,13 @@
+<svg width="72" height="72" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Corre por México</title>
+  <desc id="desc">Logotipo circular con figura de corredor estilizada.</desc>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f9d55" />
+      <stop offset="100%" stop-color="#c81d25" />
+    </linearGradient>
+  </defs>
+  <circle cx="36" cy="36" r="34" fill="url(#grad)" stroke="#ffffff" stroke-width="2" />
+  <path d="M18 42c6-10 12-12 16-12 6 0 10 4 10 8s-4 8-10 8c-4 0-10-2-16-4z" fill="#ffffff" opacity="0.85" />
+  <path d="M46 22l8 8-4 4-8-8z" fill="#ffffff" opacity="0.85" />
+</svg>
